@@ -20,7 +20,7 @@ struct StartButtonView: View {
         }
         .frame(width: 185, height: 60)
         .background(.blue)
-        .cornerRadius(20)
+        .clipShape(.rect(cornerRadius: 20))
         .shadow(radius: 10)
         .overlay(
             RoundedRectangle(cornerRadius: 20)

@@ -8,24 +8,29 @@
 import SwiftUI
 
 enum CurrentLight {
-    case red, yellow, green
+    case off, red, yellow, green
 }
 
 struct ContentView: View {
     
     @State private var buttonTitle = "START"
     
-    @State private var redLight = 0.3
-    @State private var yellowLight = 0.3
-    @State private var greenLight = 0.3
-    
-    @State private var currentLight = CurrentLight.red
+    @State private var currentLight = CurrentLight.off
     
     var body: some View {
         VStack(spacing: 30) {
-            ColorCircleView(color: .red, opacity: redLight)
-            ColorCircleView(color: .yellow, opacity: yellowLight)
-            ColorCircleView(color: .green, opacity: greenLight)
+            ColorCircleView(
+                color: .red,
+                opacity: currentLight == .red ? 1 : 0.3
+            )
+            ColorCircleView(
+                color: .yellow,
+                opacity: currentLight == .yellow ? 1 : 0.3
+            )
+            ColorCircleView(
+                color: .green,
+                opacity: currentLight == .green ? 1 : 0.3
+            )
             
             Spacer()
             
@@ -41,22 +46,13 @@ struct ContentView: View {
     
     
     private func nextColor() {
-        let lightIsOn = 1.0
-        let lightIsOff = 0.3
         
         switch currentLight {
-        case .red:
-            currentLight = .yellow
-            greenLight = lightIsOff
-            redLight = lightIsOn
-        case .yellow:
-            currentLight = .green
-            redLight = lightIsOff
-            yellowLight = lightIsOn
-        case .green:
-            currentLight = .red
-            yellowLight = lightIsOff
-            greenLight = lightIsOn
+      
+        case .off: currentLight = .red
+        case .red: currentLight = .yellow
+        case .yellow: currentLight = .green
+        case .green: currentLight = .red
         }
     }
 }
